@@ -1,0 +1,9 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. DOOS.
+       AUTHOR. theluqmn.
+
+       ENVIRONMENT DIVISION.
+
+       PROCEDURE DIVISION.
+       DISPLAY "halu world".
+       END PROGRAM DOOS.
