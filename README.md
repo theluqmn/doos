@@ -8,7 +8,19 @@ CLI-based to-do system
 
 ## how this works
 
+### file system design
+
+- `TASK(id INT PRIMARY KEY, name TEXT, status INT)`
+
 ## to-do
+
+very ironic.
+
+- [ ] figure out how this system will work
+- [ ] build the basics (procedures, CLI handler)
+- [ ] add task into list
+- [ ] sort based on date
+- [ ] show overdue
 
 ## extras
 
