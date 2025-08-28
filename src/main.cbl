@@ -37,11 +37,23 @@
            ACCEPT TEMPSTR-A.
            MOVE FUNCTION LOWER-CASE(TEMPSTR-A) TO CLI-INPUT.
 
-           IF CLI-INPUT = "exit" THEN
+           IF CLI-INPUT = "setup" THEN
+               PERFORM PROCEDURE-SETUP
+           ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
+       PROCEDURE-SETUP.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "SETUP DOOS".
+           DISPLAY " ".
+
+           OPEN OUTPUT TASK-FILE.
+           CLOSE TASK-FILE.
+           DISPLAY "(1/1) task file created".
+
+           DISPLAY "setup complete".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.

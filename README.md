@@ -19,7 +19,7 @@ very ironic.
 
 - [x] figure out how this system will work
 - [x] build the basics (procedures, CLI handler)
-- [ ] setup procedure
+- [x] setup procedure
 - [ ] add task into list
 - [ ] sort based on date
 - [ ] show overdue
