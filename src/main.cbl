@@ -22,6 +22,7 @@
        WORKING-STORAGE SECTION.
       *logic variables
        01 CLI-INPUT                    PIC X(32).
+       01 WS-DATE                      PIC 9(8).
        01 WS-CURRENT-DATE              PIC 9(8).
        01 WS-CURRENT-DATE-REDEF REDEFINES WS-CURRENT-DATE.
            05 WS-CURRENT-YEAR          PIC 9(4).
@@ -36,7 +37,6 @@
        01 TEMPNUM-A                    PIC 9(32).
        01 TEMPNUM-B                    PIC 9(32).
        01 TEMPNUM-C                    PIC 9(32).
-       01 TEMPNUM-D                    PIC 9(32).
 
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
@@ -55,6 +55,8 @@
                DISPLAY "exiting..."
            ELSE IF CLI-INPUT = "help" THEN
                PERFORM PROCEDURE-HELP
+           ELSE IF CLI-INPUT = "add" THEN
+               PERFORM PROCEDURE-ADD
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
@@ -85,9 +87,10 @@
            ACCEPT TEMPSTR-A.
            DISPLAY "(2/2) due:         " WITH NO ADVANCING.
            ACCEPT TEMPSTR-B.
-           UNSTRING TEMPSTR-B
-               DELIMITED BY "-"
-               INTO TEMPNUM-A, TEMPNUM-B, TEMPNUM-C
+           MOVE TEMPSTR-B(1:4) TO WS-DATE(1:4).
+           MOVE TEMPSTR-B(6:2) TO WS-DATE(5:2).
+           MOVE TEMPSTR-B(9:2) TO WS-DATE(7:2).
+           DISPLAY WS-DATE.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
