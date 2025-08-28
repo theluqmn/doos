@@ -4,9 +4,14 @@ CLI-based to-do system
 
 ## features
 
+> [!NOTE]
+> this project is a work-in-progress.
+
 ## how to use
 
 ## how this works
+
+it is a very simple, straightforward to-do list system. create tasks, which you mark as complete once you did it. doos also shows you tasks are due soon, and overdue (if there is any).
 
 ### file system design
 
@@ -22,9 +27,12 @@ very ironic.
 - [x] setup procedure
 - [x] figure out how dates work
 - [ ] add task into list
+- [ ] mark task as done/complete
 - [ ] sort based on date
 - [ ] show overdue
 
 ## extras
 
-the main objective of building this project is to learn and implement date and time using cobol.
+the main objective of building this project is to learn and implement date and time in cobol, for my upcoming planned projects. i procrastinated a lot on working on this - unlike my other projects hehehee.
+
+this project is licensed under the MIT license.
