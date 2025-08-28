@@ -10,7 +10,8 @@ CLI-based to-do system
 
 ### file system design
 
-- `TASK(id INT PRIMARY KEY, name TEXT, status INT)`
+- `TASK(id INTEGER PRIMARY KEY (8), name TEXT (32), date TEXT (32), status INTEGER)`
+- `LOG(num INTEGER PRIMARY KEY (8), details TEXT (32), date TEXT (32)`
 
 ## to-do
 
