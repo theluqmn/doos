@@ -15,19 +15,25 @@
        FILE SECTION.
        FD TASK-FILE.
        01 TASK-RECORD.
-           05 TASK-ID          PIC X(8).
-           05 TASK-NAME        PIC X(32).
-           05 TASK-DATE        PIC X(32).
-           05 TASK-STATUS      PIC X.
+           05 TASK-ID              PIC X(8).
+           05 TASK-NAME            PIC X(32).
+           05 TASK-DATE            PIC X(32).
+           05 TASK-STATUS          PIC X.
        WORKING-STORAGE SECTION.
       *logic variables
-       01 CLI-INPUT            PIC X(32).
+       01 CLI-INPUT                PIC X(32).
+       01 FULL-DATE             PIC 9(8).
+       01 FULL-DATE-REDEF REDEFINES FULL-DATE.
+           05 FULL-YEAR         PIC 9(4).
+           05 FULL-MONTH        PIC 9(2).
+           05 FULL-DAY          PIC 9(2).
       *file status variables
-       01 FS-TASK              PIC XX.
+       01 FS-TASK                  PIC XX.
       *temporary str variables
-       01 TEMPSTR-A            PIC X(32).
+       01 TEMPSTR-A                PIC X(32).
 
        PROCEDURE DIVISION.
+       ACCEPT FULL-DATE FROM DATE YYYYMMDD.
        DISPLAY "DOOS - the tool to get it done".
        DISPLAY " ".
        PERFORM PROCEDURE-MAIN.
@@ -71,7 +77,6 @@
            DISPLAY " ".
            DISPLAY "(1/2) name:        " WITH NO ADVANCING.
            ACCEPT TEMPSTR-A.
-
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
