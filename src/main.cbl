@@ -65,6 +65,13 @@
            DISPLAY "-".
            DISPLAY "[setup]            setup doos".
            DISPLAY "[exit]             exit doos".
+       PROCEDURE-ADD.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "ADD A NEW TASK".
+           DISPLAY " ".
+           DISPLAY "(1/2) name:        " WITH NO ADVANCING.
+           ACCEPT TEMPSTR-A.
+
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
