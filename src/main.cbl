@@ -41,6 +41,8 @@
                PERFORM PROCEDURE-SETUP
            ELSE IF CLI-INPUT = "exit" THEN
                DISPLAY "exiting..."
+           ELSE IF CLI-INPUT = "help" THEN
+               PERFORM PROCEDURE-HELP
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
@@ -54,6 +56,15 @@
            DISPLAY "(1/1) task file created".
 
            DISPLAY "setup complete".
+       PROCEDURE-HELP.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "HELP WITH DOOS".
+           DISPLAY "github: https://github.com/theluqmn/doos".
+           DISPLAY " ".
+           DISPLAY "available commands:".
+           DISPLAY "-".
+           DISPLAY "[setup]            setup doos".
+           DISPLAY "[exit]             exit doos".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
