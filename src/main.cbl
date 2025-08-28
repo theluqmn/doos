@@ -83,6 +83,8 @@
            DISPLAY "---------------------------------------------".
            DISPLAY "ADD A NEW TASK".
            DISPLAY " ".
+           DISPLAY "note: please format date as yyyy-mm-dd."
+           DISPLAY " ".
            DISPLAY "(1/2) name:        " WITH NO ADVANCING.
            ACCEPT TEMPSTR-A.
            DISPLAY "(2/2) due:         " WITH NO ADVANCING.
