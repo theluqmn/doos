@@ -17,8 +17,9 @@ CLI-based to-do system
 
 very ironic.
 
-- [ ] figure out how this system will work
-- [ ] build the basics (procedures, CLI handler)
+- [x] figure out how this system will work
+- [x] build the basics (procedures, CLI handler)
+- [ ] setup procedure
 - [ ] add task into list
 - [ ] sort based on date
 - [ ] show overdue
