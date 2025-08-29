@@ -112,16 +112,16 @@
            DISPLAY " ".
 
            DISPLAY
-           "NUM     | "
-           "ID      | "
-           "NAME                             | "
-           "DATE    | "
-           "STATUS  | ".
+           "NUM     |"
+           "ID      |"
+           "NAME                             |"
+           "DATE       |"
+           "STATUS  |".
            DISPLAY
-           "--------|-"
-           "--------|-"
+           "--------|"
+           "--------|"
            "---------------------------------|-"
-           "--------|-"
+           "-----------|-"
            "--------|".
            MOVE 0 TO COUNTER.
            OPEN INPUT TASK-FILE
@@ -132,9 +132,12 @@
                    ADD 1 TO COUNTER
                    DISPLAY
                    COUNTER "|"
-                   TASK-ID " | "
-                   TASK-NAME " | "
-                   TASK-DATE " | " WITH NO ADVANCING
+                   TASK-ID "|"
+                   TASK-NAME " | " WITH NO ADVANCING
+                   DISPLAY
+                   TASK-DATE(1:4)"-"
+                   TASK-DATE(5:2)"-"
+                   TASK-DATE(7:2) " | " WITH NO ADVANCING
                    IF TASK-STATUS = 0 THEN
                        DISPLAY "UPCOMING | "
                    END-IF
