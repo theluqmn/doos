@@ -7,7 +7,24 @@ CLI-based to-do system
 > [!NOTE]
 > this project is a work-in-progress.
 
+- add tasks, with deadlines
+
 ## how to use
+
+> [!WARNING]
+> the release only offers an executable compiled for Ubuntu. if you are not on the same distro or operating system, please refer to the [compiling it yourself](#compiling-it-yourself) guide.
+
+1. go to [releases](https://github.com/theluqmn/doos/releases/latest), download the latest release.
+2. navigate to the directory of the executable and simply run `./main`.
+
+### compiling it yourself
+
+the following are the steps for Ubuntu.
+
+1. install `gnucobol` using your package manager (download gnucobol).
+2. clone this repository.
+3. run `cobc src/main.cbl` in the project directory.
+4. run `./main` to run the program.
 
 ## how this works
 
