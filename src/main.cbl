@@ -22,6 +22,7 @@
        WORKING-STORAGE SECTION.
       *logic variables
        01 CLI-INPUT                    PIC X(32).
+       01 COUNTER                      PIC 9(8).
        01 WS-DATE                      PIC 9(8).
        01 WS-CURRENT-DATE              PIC 9(8).
        01 WS-CURRENT-DATE-REDEF REDEFINES WS-CURRENT-DATE.
@@ -85,9 +86,11 @@
            DISPLAY " ".
            DISPLAY "note: please format date as yyyy-mm-dd."
            DISPLAY " ".
-           DISPLAY "(1/2) name:        " WITH NO ADVANCING.
+           DISPLAY "(1/3) id:          " WITH NO ADVANCING.
+           ACCEPT TASK-ID.
+           DISPLAY "(2/3) details:     " WITH NO ADVANCING.
            ACCEPT TASK-NAME.
-           DISPLAY "(2/2) due:         " WITH NO ADVANCING.
+           DISPLAY "(3/3) due:         " WITH NO ADVANCING.
            ACCEPT TEMPSTR-B.
            MOVE TEMPSTR-B(1:4) TO WS-DATE(1:4).
            MOVE TEMPSTR-B(6:2) TO WS-DATE(5:2).

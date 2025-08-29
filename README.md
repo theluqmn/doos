@@ -26,7 +26,7 @@ very ironic.
 - [x] build the basics (procedures, CLI handler)
 - [x] setup procedure
 - [x] figure out how dates work
-- [ ] add task into list
+- [x] add task into list
 - [ ] mark task as done/complete
 - [ ] sort based on date
 - [ ] show overdue
