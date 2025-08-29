@@ -58,6 +58,8 @@
                PERFORM PROCEDURE-HELP
            ELSE IF CLI-INPUT = "add" THEN
                PERFORM PROCEDURE-ADD
+           ELSE IF CLI-INPUT = "list" THEN
+               PERFORM PROCEDURE-LIST
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
@@ -104,6 +106,42 @@
 
            DISPLAY " ".
            DISPLAY "task added successfully".
+       PROCEDURE-LIST.
+           DISPLAY "---------------------------------------------".
+           DISPLAY "ALL TASKS".
+           DISPLAY " ".
+
+           DISPLAY
+           "NUM     | "
+           "ID      | "
+           "NAME                             | "
+           "DATE    | "
+           "STATUS  | ".
+           DISPLAY
+           "--------|-"
+           "--------|-"
+           "---------------------------------|-"
+           "--------|-"
+           "--------|".
+           MOVE 0 TO COUNTER.
+           OPEN INPUT TASK-FILE
+           PERFORM UNTIL FS-TASK NOT = '00'
+               READ TASK-FILE NEXT
+                   AT END MOVE '99' TO FS-TASK
+               NOT AT END
+                   ADD 1 TO COUNTER
+                   DISPLAY
+                   COUNTER "|"
+                   TASK-ID " | "
+                   TASK-NAME " | "
+                   TASK-DATE " | " WITH NO ADVANCING
+                   IF TASK-STATUS = 0 THEN
+                       DISPLAY "UPCOMING | "
+                   END-IF
+               END-READ
+           END-PERFORM
+           CLOSE TASK-FILE.
+           DISPLAY " ".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
