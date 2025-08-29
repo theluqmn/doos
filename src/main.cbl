@@ -86,13 +86,21 @@
            DISPLAY "note: please format date as yyyy-mm-dd."
            DISPLAY " ".
            DISPLAY "(1/2) name:        " WITH NO ADVANCING.
-           ACCEPT TEMPSTR-A.
+           ACCEPT TASK-NAME.
            DISPLAY "(2/2) due:         " WITH NO ADVANCING.
            ACCEPT TEMPSTR-B.
            MOVE TEMPSTR-B(1:4) TO WS-DATE(1:4).
            MOVE TEMPSTR-B(6:2) TO WS-DATE(5:2).
            MOVE TEMPSTR-B(9:2) TO WS-DATE(7:2).
-           DISPLAY WS-DATE.
+           MOVE WS-DATE TO TASK-DATE.
+           MOVE 0 TO TASK-STATUS.
+
+           OPEN I-O TASK-FILE.
+           WRITE TASK-RECORD.
+           CLOSE TASK-FILE.
+
+           DISPLAY " ".
+           DISPLAY "task added successfully".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
