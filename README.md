@@ -2,6 +2,8 @@
 
 CLI-based to-do system
 
+**doos** is a to-do list management software powered by cobol and the supreme command line.
+
 ## features
 
 > [!NOTE]
