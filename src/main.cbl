@@ -115,14 +115,14 @@
            "NUM     |"
            "ID      |"
            "NAME                             |"
-           "DATE       |"
-           "STATUS  |".
+           " ATE       |"
+           "STATUS    |".
            DISPLAY
            "--------|"
            "--------|"
            "---------------------------------|-"
            "-----------|-"
-           "--------|".
+           "---------|".
            MOVE 0 TO COUNTER.
            OPEN INPUT TASK-FILE
            PERFORM UNTIL FS-TASK NOT = '00'
