@@ -46,10 +46,11 @@ very ironic.
 - [x] setup procedure
 - [x] figure out how dates work
 - [x] add task into list
-- [ ] list down all tasks - figure out the text
+- [x] list down all tasks
 - [ ] mark task as done/complete
 - [ ] sort based on date
 - [ ] show overdue
+- [ ] show overview of tasks at home
 
 ## extras
 
