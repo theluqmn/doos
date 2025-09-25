@@ -60,6 +60,8 @@
                PERFORM PROCEDURE-ADD
            ELSE IF CLI-INPUT = "list" THEN
                PERFORM PROCEDURE-LIST
+           ELSE IF CLI-INPUT = "done" THEN
+               PERFORM PROCEDURE-COMPLETE
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
@@ -146,6 +148,9 @@
            CLOSE TASK-FILE.
            DISPLAY " ".
            DISPLAY "task sorted by due date".
+       PROCEDURE-COMPLETE.
+           DISPLAY "---------------------------------------------".
+
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
