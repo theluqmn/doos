@@ -25,4 +25,18 @@
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
        DISPLAY "DOOS - the tool to get it done".
-       
+       PERFORM PROCEDURE-MAIN.
+       CLI-HANDLER.
+           DISPLAY "> " WITH NO ADVANCING.
+           ACCEPT TEMPSTR-A.
+           MOVE FUNCTION LOWER-CASE(TEMPSTR-A) TO CLI-INPUT.
+
+           IF CLI-INPUT = "exit" THEN
+               DISPLAY "[i] exiting..."
+           ELSE
+               DISPLAY "[!] unknown command entered"
+           END-IF.
+       PROCEDURE-MAIN.
+           PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
+           STOP RUN.
+       END PROGRAM DOOS.
