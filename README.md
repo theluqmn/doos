@@ -34,23 +34,25 @@ it is a very simple, straightforward to-do list system. create tasks, which you 
 
 ### file system design
 
-- `TASK(id INTEGER PRIMARY KEY (8), name TEXT (32), date TEXT (32), status INTEGER)`
-- `LOG(num INTEGER PRIMARY KEY (8), details TEXT (32), date TEXT (32)`
+- `TASK(TASK-ID PRIMARY KEY TEXT(32), TASK-DETAILS TEXT(32), TASK-DATE TEXT(8), TASK-STATUS TEXT(1))`
 
 ## to-do
 
 very ironic.
 
-- [x] figure out how this system will work
-- [x] build the basics (procedures, CLI handler)
-- [x] setup procedure
-- [x] figure out how dates work
-- [x] add task into list
-- [x] list down all tasks
-- [ ] mark task as done/complete
-- [ ] sort based on date
-- [ ] show overdue
-- [ ] show overview of tasks at home
+sorted by importance (top-bottom):
+
+- [x] cobol setup
+- [x] cli-handler
+- [ ] add task
+- [ ] list tasks
+- [ ] process tasks (overdue, upcoming)
+- [ ] mark task as complete
+- [ ] reschedule task
+- [ ] remove tasks
+- [ ] sort listing of tasks based on due date
+- [ ] overview
+- [ ] show top 5 upcoming tasks
 
 ## extras
 
