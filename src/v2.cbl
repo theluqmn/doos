@@ -7,6 +7,13 @@
        FILE-CONTROL.
        
        DATA DIVISION.
+       FILE SECTUON.
+       FD TASK-FILE.
+       01 TASK-RECORD.
+           05 TASK-ID                      PIC X(32).
+           05 TASK-NAME                    PIC X(32).
+           05 TASK-DATE                    PIC X(8).
+           05 TASK-STATUS                  PIC X.
        WORKING-STORAGE SECTION.
       *logic variables
        01 CLI-INPUT                        PIC X(32).
@@ -19,8 +26,10 @@
       *temporary variables
        01 TEMPSTR-A                        PIC X(32).
        01 TEMPSTR-B                        PIC X(32).
+       01 TEMPSTR-C                        PIC X(32).
        01 TEMPNUM-A                        PIC 9(8).
        01 TEMPNUM-B                        PIC 9(8).
+       01 TEMPNUM-C                        PIC 9(8).
 
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
