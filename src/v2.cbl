@@ -54,11 +54,23 @@
 
            IF CLI-INPUT = "exit" THEN
                DISPLAY "[i] exiting..."
+           ELSE IF CLI-INPUT = "setup" THEN
+               PERFORM PROCEDURE-SETUP
            ELSE IF CLI-INPUT = "add" THEN
                PERFORM PROCEDURE-ADD
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
+       PROCEDURE-SETUP.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "SETUP DOOS". DISPLAY " ".
+
+           OPEN OUTPUT TASK-FILE.
+           CLOSE TASK-FILE.
+
+           DISPLAY "(1/1) task file created".
+           DISPLAY "setup complete!".
        PROCEDURE-ADD.
            DISPLAY
            "------------------------------------------------------".

@@ -44,7 +44,8 @@ sorted by importance (top-bottom):
 
 - [x] cobol setup
 - [x] cli-handler
-- [ ] add task
+- [x] setup procedure
+- [x] add task
 - [ ] list tasks
 - [ ] process tasks (overdue, upcoming)
 - [ ] mark task as complete
