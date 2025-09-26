@@ -61,6 +61,26 @@
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
+       PROCEDURE-PROCESSOR.
+           OPEN INPUT TASK-FILE
+           PERFORM UNTIL FS-TASK NOT = '00'
+               READ TASK-FILE NEXT
+                   AT END MOVE '99' TO FS-TASK
+               NOT AT END
+                   MOVE TASK-DATE TO TP-DATE
+                   COMPUTE TP-NUM-A = FUNCTION
+                   INTEGER-OF-DATE(TP-DATE)
+                   COMPUTE TP-NUM-B = FUNCTION
+                   INTEGER-OF-DATE(WS-CURRENT-DATE)
+                   IF TP-NUM-A > TP-NUM-B THEN
+                       MOVE 1 TO TASK-STATUS
+                   ELSE
+                       MOVE 0 TO TASK-STATUS
+                   END-IF
+                   WRITE TASK-RECORD
+               END-READ
+           END-PERFORM
+           CLOSE TASK-FILE.
        PROCEDURE-SETUP.
            DISPLAY
            "------------------------------------------------------".
@@ -91,6 +111,8 @@
            OPEN I-O TASK-FILE.
            WRITE TASK-RECORD.
            CLOSE TASK-FILE.
+
+           PERFORM PROCEDURE-PROCESSOR.
 
            DISPLAY " ".
            DISPLAY "task added successfully!".

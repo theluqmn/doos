@@ -46,8 +46,8 @@ sorted by importance (top-bottom):
 - [x] cli-handler
 - [x] setup procedure
 - [x] add task
+- [x] process tasks (overdue, upcoming)
 - [ ] list tasks
-- [ ] process tasks (overdue, upcoming)
 - [ ] mark task as complete
 - [ ] reschedule task
 - [ ] remove tasks
