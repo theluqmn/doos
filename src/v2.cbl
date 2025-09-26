@@ -116,6 +116,10 @@
 
            DISPLAY " ".
            DISPLAY "task added successfully!".
+       PROCEDURE-LIST.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "ALL TASKS". DISPLAY " ".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
