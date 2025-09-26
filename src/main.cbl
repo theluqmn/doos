@@ -15,7 +15,7 @@
        FILE SECTION.
        FD TASK-FILE.
        01 TASK-RECORD.
-           05 TASK-ID                  PIC X(8).
+           05 TASK-ID                  PIC X(16).
            05 TASK-NAME                PIC X(32).
            05 TASK-DATE                PIC X(8).
            05 TASK-STATUS              PIC X.
@@ -61,7 +61,7 @@
            ELSE IF CLI-INPUT = "list" THEN
                PERFORM PROCEDURE-LIST
            ELSE IF CLI-INPUT = "done" THEN
-               PERFORM PROCEDURE-COMPLETE
+               PERFORM PROCEDURE-DONE
            ELSE
                DISPLAY "unknown command entered"
            END-IF.
@@ -115,13 +115,13 @@
 
            DISPLAY
            "NUM     |"
-           "ID      |"
+           "ID              |"
            "NAME                            |"
            "DATE      |"
            "STATUS   |".
            DISPLAY
            "--------|"
-           "--------|"
+           "----------------|"
            "--------------------------------|"
            "----------|"
            "---------|".
@@ -148,8 +148,10 @@
            CLOSE TASK-FILE.
            DISPLAY " ".
            DISPLAY "task sorted by due date".
-       PROCEDURE-COMPLETE.
+       PROCEDURE-DONE.
            DISPLAY "---------------------------------------------".
+           DISPLAY "task id:           " WITH NO ADVANCING.
+           ACCEPT TASK-ID.
 
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
