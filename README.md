@@ -57,6 +57,6 @@ sorted by importance (top-bottom):
 
 ## extras
 
-the main objective of building this project is to learn and implement date and time in cobol, for my upcoming planned projects. i procrastinated a lot on working on this - unlike my other projects hehehee.
+the main objective of building this project is to learn and implement date and time in cobol, for my upcoming planned projects. i procrastinated a lot on working on this - unlike my other projects hehehee. it took me weeks to finally get back on track, and when i did, i realised that i barely understood how this works therefore a "v2" is needed - aka rebuilding from scratch.
 
 this project is licensed under the MIT license.
