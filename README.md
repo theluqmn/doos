@@ -48,7 +48,7 @@ sorted by importance (top-bottom):
 - [x] add task
 - [x] process tasks (overdue, upcoming)
 - [x] list tasks
-- [ ] mark task as complete
+- [x] mark task as complete
 - [ ] reschedule task
 - [ ] remove tasks
 - [ ] sort listing of tasks based on due date

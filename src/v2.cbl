@@ -60,26 +60,32 @@
                PERFORM PROCEDURE-ADD
            ELSE IF CLI-INPUT = "list" THEN
                PERFORM PROCEDURE-LIST
+           ELSE IF CLI-INPUT = "done" THEN
+               PERFORM PROCEDURE-COMPLETE
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
        PROCEDURE-PROCESSOR.
-           OPEN INPUT TASK-FILE
+           OPEN I-O TASK-FILE
            PERFORM UNTIL FS-TASK NOT = '00'
                READ TASK-FILE NEXT
                    AT END MOVE '99' TO FS-TASK
                NOT AT END
-                   MOVE TASK-DATE TO TP-DATE
-                   COMPUTE TP-NUM-A = FUNCTION
-                   INTEGER-OF-DATE(TP-DATE)
-                   COMPUTE TP-NUM-B = FUNCTION
-                   INTEGER-OF-DATE(WS-CURRENT-DATE)
-                   IF TP-NUM-A >= TP-NUM-B THEN
-                       MOVE 1 TO TASK-STATUS
-                   ELSE
-                       MOVE 0 TO TASK-STATUS
+                   IF TASK-STATUS NOT = 2 THEN
+                       MOVE TASK-DATE TO TP-DATE
+                       COMPUTE TP-NUM-A = FUNCTION
+                       INTEGER-OF-DATE(TP-DATE)
+                       COMPUTE TP-NUM-B = FUNCTION
+                       INTEGER-OF-DATE(WS-CURRENT-DATE)
+            
+                       IF TP-NUM-A < TP-NUM-B THEN
+                           MOVE 0 TO TASK-STATUS
+                           REWRITE TASK-RECORD
+                       ELSE
+                           MOVE 1 TO TASK-STATUS
+                           REWRITE TASK-RECORD
+                       END-IF
                    END-IF
-                   WRITE TASK-RECORD
                END-READ
            END-PERFORM
            CLOSE TASK-FILE.
@@ -153,15 +159,36 @@
                    TASK-DATE(5:2)"-"
                    TASK-DATE(7:2) " | " WITH NO ADVANCING
                    IF TASK-STATUS = 1 THEN
-                       DISPLAY "OVERDUE  |"
-                   ELSE
                        DISPLAY "UPCOMING |"
+                   ELSE IF TASK-STATUS = 2 THEN
+                       DISPLAY "COMPLETE |"
+                   ELSE
+                       DISPLAY "OVERDUE  |"
                    END-IF
                END-READ
            END-PERFORM
            CLOSE TASK-FILE.
            DISPLAY " ".
            DISPLAY "total tasks: " COUNTER.
+       PROCEDURE-COMPLETE.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "MARK AS COMPLETE". DISPLAY " ".
+           DISPLAY "task id:                   " WITH NO ADVANCING.
+           ACCEPT TASK-ID.
+
+           OPEN I-O TASK-FILE.
+           READ TASK-FILE KEY IS TASK-ID
+               INVALID KEY
+                   DISPLAY "[!] task id is invalid"
+               NOT INVALID KEY
+                   MOVE 2 TO TASK-STATUS
+                   REWRITE TASK-RECORD
+                   DISPLAY "[i] item marked as complete!"
+           END-READ.
+           CLOSE TASK-FILE.
+
+           DISPLAY " ".
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
