@@ -4,6 +4,9 @@ CLI-based to-do system
 
 **doos** is a to-do list management software powered by cobol and the supreme command line.
 
+> [!NOTE]
+> this project is still a work-in-progress
+
 ## features
 
 - add tasks with a deadline
@@ -39,4 +42,4 @@ CLI-based to-do system
 
 the primary objective of this project is to allow me to learn and implement date and time in a functionally-working cobol project. this project was originally started over a month prior to allowing public access to the repository - a lot of procrastination went into this project. i abandoned it for more than 4 weeks, and when i finally went back in (to finish my debt), i had forgotten how the code works therefore i needed a fresh restart (aka v2).
 
-this project is licensed under the MIT license.
+this project is licensed under the [MIT license](https://github.com/theluqmn/doos/blob/main/LICENSE).
