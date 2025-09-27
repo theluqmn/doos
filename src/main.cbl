@@ -28,6 +28,16 @@
            05 WS-CURRENT-YEAR                  PIC 9(4).
            05 WS-CURRENT-MONTH                 PIC 9(2).
            05 WS-CURRENT-DAY                   PIC 9(2).
+      *ansi colours
+       01 ESC                                  PIC X VALUE X'1B'.
+       01 RES                                  PIC X(3) VALUE "[0m".
+       01 SUB                                  PIC X(4) VALUE "[30m".
+       01 H-1                                  PIC X(6) VALUE "[4;97m".
+       01 H-2                                  PIC X(6) VALUES "[1;37m".
+       01 ERR                                  PIC X(4) VALUE "[31m".
+       01 INF                                  PIC X(4) VALUE "[34m".
+       01 DAT                                  PIC X(4) VALUE "[32m".
+       01 SUC                                  PIC X(4) VALUE "[32m".
       *status variables
        01 FS-TASK                              PIC XX.
       *temporary variables
@@ -45,13 +55,15 @@
 
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
-       DISPLAY "DOOS - the tool to get it done". DISPLAY " ".
-       DISPLAY "run 'help' for the list of commands".
+       DISPLAY "DOOS - the tool to get it done".
+       DISPLAY " ".
+       DISPLAY ESC SUB "run 'help' for the list of commands" ESC RES.
        PERFORM PROCEDURE-MAIN.
        CLI-HANDLER.
            DISPLAY "> " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
+           DISPLAY " ".
 
            IF CLI-INPUT = "exit" THEN
                DISPLAY "[i] exiting..."
@@ -70,7 +82,7 @@
            ELSE IF CLI-INPUT = "delete" THEN
                PERFORM PROCEDURE-DELETE
            ELSE
-               DISPLAY "[!] unknown command entered"
+               DISPLAY ESC ERR "[!] unknown command entered" ESC RES
            END-IF.
        PROCEDURE-PROCESSOR.
            OPEN I-O TASK-FILE
@@ -97,13 +109,9 @@
            END-PERFORM
            CLOSE TASK-FILE.
        PROCEDURE-HELP.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "HELP".
-           DISPLAY "github: https://github.com/theluqmn/doos"
-           DISPLAY " ". 
-           DISPLAY "command:                   description:".
-           DISPLAY " ".
+           DISPLAY ESC H-1 "HELP" ESC RES. DISPLAY " ".
+           DISPLAY ESC SUB "command:                   description:"
+           ESC RES.
            DISPLAY "[setup]                    setup doos".
            DISPLAY "[add]                      add a new task".
            DISPLAY "[list]                     view all tasks".
@@ -114,9 +122,7 @@
            DISPLAY "[exit]                     exit the program".
            DISPLAY " ".
        PROCEDURE-SETUP.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "SETUP DOOS". DISPLAY " ".
+           DISPLAY ESC H-1 "SETUP DOOS" ESC RES. DISPLAY " ".
 
            OPEN OUTPUT TASK-FILE.
            CLOSE TASK-FILE.
@@ -124,9 +130,7 @@
            DISPLAY "(1/1) task file created".
            DISPLAY "setup complete!".
        PROCEDURE-ADD.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "ADD A NEW TASK". DISPLAY " ".
+           DISPLAY ESC H-1 "ADD A NEW TASK" ESC RES. DISPLAY " ".
 
            DISPLAY "(1/3) id:                  " WITH NO ADVANCING.
            ACCEPT TASK-ID.
@@ -150,24 +154,22 @@
            DISPLAY " ".
            DISPLAY "task added successfully!".
        PROCEDURE-LIST.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "ALL TASKS". DISPLAY " ".
+           DISPLAY ESC H-1 "ALL TASKS" ESC RES. DISPLAY " ".
 
            PERFORM PROCEDURE-PROCESSOR.
 
            DISPLAY
-           "| NUM      "
-           "| TASK ID                          "
-           "| DETAILS                          "
-           "| DUE DATE   "
-           "| STATUS   |"
+           ESC SUB "| " ESC H-2 "NUM      "
+           ESC SUB "| " ESC H-2 "TASK ID                          " 
+           ESC SUB "| " ESC H-2 "DETAILS                          "
+           ESC SUB "| " ESC H-2 "DUE DATE   "
+           ESC SUB "| " ESC H-2 "STATUS   " ESC SUB "|".
            DISPLAY
            "|----------"
            "|----------------------------------"
            "|----------------------------------"
            "|------------"
-           "|----------|"
+           "|----------|" ESC RES.
            MOVE 0 TO COUNTER.
            OPEN INPUT TASK-FILE.
            PERFORM UNTIL FS-TASK NOT = '00'
@@ -175,49 +177,50 @@
                    AT END MOVE '99' TO FS-TASK
                NOT AT END
                    ADD 1 TO COUNTER
-                   DISPLAY "| "
-                   COUNTER " | "
-                   TASK-ID " | "
-                   TASK-DETAILS " | " WITH NO ADVANCING
+                   DISPLAY ESC SUB "| " ESC RES
+                   COUNTER ESC SUB " | " ESC RES
+                   TASK-ID ESC SUB " | " ESC RES
+                   TASK-DETAILS ESC SUB " | " ESC RES
+                   WITH NO ADVANCING
                    DISPLAY
                    TASK-DATE(1:4)"-"
                    TASK-DATE(5:2)"-"
-                   TASK-DATE(7:2) " | " WITH NO ADVANCING
+                   TASK-DATE(7:2)
+                   ESC SUB " | " ESC RES WITH NO ADVANCING
                    IF TASK-STATUS = 1 THEN
-                       DISPLAY "UPCOMING |"
+                       DISPLAY ESC INF "UPCOMING" ESC SUB " |" ESC RES
                    ELSE IF TASK-STATUS = 2 THEN
-                       DISPLAY "COMPLETE |"
+                       DISPLAY ESC SUC "COMPLETE" ESC SUB " |" ESC RES
                    ELSE
-                       DISPLAY "OVERDUE  |"
+                       DISPLAY ESC ERR "OVERDUE" ESC SUB "  |" ESC RES
                    END-IF
                END-READ
            END-PERFORM
            CLOSE TASK-FILE.
            DISPLAY " ".
-           DISPLAY "total tasks: " COUNTER.
+           DISPLAY ESC SUB "total tasks: " COUNTER ESC RES.
        PROCEDURE-COMPLETE.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "MARK AS COMPLETE". DISPLAY " ".
+           DISPLAY ESC H-1 "MARK AS COMPLETE" ESC RES. DISPLAY " ".
            DISPLAY "task id:                   " WITH NO ADVANCING.
            ACCEPT TASK-ID.
 
            OPEN I-O TASK-FILE.
            READ TASK-FILE KEY IS TASK-ID
                INVALID KEY
-                   DISPLAY "[!] task id is invalid"
+                   DISPLAY
+                   ESC ERR "[!] task id is invalid" ESC RES
                NOT INVALID KEY
                    MOVE 2 TO TASK-STATUS
                    REWRITE TASK-RECORD
-                   DISPLAY "[i] item marked as complete!"
+                   DISPLAY
+                   ESC SUC "[i] item marked as complete!" ESC RES
            END-READ.
            CLOSE TASK-FILE.
 
            DISPLAY " ".
        PROCEDURE-RESCHEDULE.
-           DISPLAY
-           "------------------------------------------------------".
-           DISPLAY "RESCHEDULE A TASK". DISPLAY " ".
+           DISPLAY ESC H-1 "RESCHEDULE A TASK" ESC RES.
+           DISPLAY " ".
 
            DISPLAY "(1/2) task id:             " WITH NO ADVANCING.
            ACCEPT TASK-ID.
@@ -231,11 +234,13 @@
            OPEN I-O TASK-FILE.
            READ TASK-FILE KEY IS TASK-ID
                INVALID KEY
-                   DISPLAY "[!] invalid task id"
+                   DISPLAY
+                   ESC ERR "[!] invalid task id" ESC RES
                NOT INVALID KEY
                    MOVE TP-DATE TO TASK-DATE
                    REWRITE TASK-RECORD
-                   DISPLAY "[i] task rescheduled successfully!"
+                   DISPLAY
+                   ESC SUC "[i] task rescheduled successfully!" ESC RES
            END-READ
            CLOSE TASK-FILE.
 
@@ -243,8 +248,6 @@
 
            DISPLAY " ".
        PROCEDURE-DELETE.
-           DISPLAY
-           "------------------------------------------------------".
            DISPLAY "DELETE A TASK". DISPLAY " ".
 
            DISPLAY "(1/1) task id:             " WITH NO ADVANCING.
@@ -253,9 +256,9 @@
            OPEN I-O TASK-FILE.
            DELETE TASK-FILE
                INVALID KEY DISPLAY
-               "[!] invalid task id"
+               ESC ERR "[!] invalid task id" ESC RES
                NOT INVALID KEY DISPLAY
-               "[i] task deleted successfully!"
+               ESC SUC "[i] task deleted successfully!" ESC RES
            END-DELETE
            CLOSE TASK-FILE.
 

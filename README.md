@@ -33,6 +33,7 @@ CLI-based to-do system
 - [x] mark task as complete
 - [x] reschedule task
 - [x] delete tasks
+- [x] add colours
 - [ ] sort listing of tasks based on due date
 - [ ] overview
 - [ ] show top 5 upcoming tasks
