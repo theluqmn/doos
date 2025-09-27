@@ -6,41 +6,20 @@ CLI-based to-do system
 
 ## features
 
-> [!NOTE]
-> this project is a work-in-progress.
+- add tasks with a deadline
+- list all tasks, with its statuses (upcoming, overdue, complete)
+- reschedule tasks to a new date
+- mark tasks as complete
+- all tasks are stored in a file (`tasks`)
 
-- add tasks, with deadlines
+## notes
 
-## how to use
-
-> [!WARNING]
-> the release only offers an executable compiled for Ubuntu. if you are not on the same distro or operating system, please refer to the [compiling it yourself](#compiling-it-yourself) guide.
-
-1. go to [releases](https://github.com/theluqmn/doos/releases/latest), download the latest release.
-2. navigate to the directory of the executable and simply run `./main`.
-
-### compiling it yourself
-
-the following are the steps for Ubuntu.
-
-1. install `gnucobol` using your package manager (download gnucobol).
-2. clone this repository.
-3. run `cobc src/main.cbl` in the project directory.
-4. run `./main` to run the program.
-
-## how this works
-
-it is a very simple, straightforward to-do list system. create tasks, which you mark as complete once you did it. doos also shows you tasks are due soon, and overdue (if there is any).
-
-### file system design
-
-- `TASK(TASK-ID PRIMARY KEY TEXT(32), TASK-DETAILS TEXT(32), TASK-DATE TEXT(8), TASK-STATUS TEXT(1))`
+- **do not leave any parameters empty** as it may cause errors (this project has minimal input validation to avoid overcomplication).
+- this program only stores 32 character long texts. please keep this in mind when naming your **TASK-ID** and **DETAILS**. for numbers, only 8 digits are supported.
+- when entering a date, please use the `YYYY-MM-DD` format. for example, if you would like to input 16th April 2009, enter it as `2009-04-16`.
+- the main console (when entering commands, with the following `>` visible) is not case sensitive, but other inputs are.
 
 ## to-do
-
-very ironic.
-
-sorted by importance (top-bottom):
 
 - [x] cobol setup
 - [x] cli-handler
@@ -58,6 +37,6 @@ sorted by importance (top-bottom):
 
 ## extras
 
-the main objective of building this project is to learn and implement date and time in cobol, for my upcoming planned projects. i procrastinated a lot on working on this - unlike my other projects hehehee. it took me weeks to finally get back on track, and when i did, i realised that i barely understood how this works therefore a "v2" is needed - aka rebuilding from scratch.
+the primary objective of this project is to allow me to learn and implement date and time in a functionally-working cobol project. this project was originally started over a month prior to allowing public access to the repository - a lot of procrastination went into this project. i abandoned it for more than 4 weeks, and when i finally went back in (to finish my debt), i had forgotten how the code works therefore i needed a fresh restart (aka v2).
 
 this project is licensed under the MIT license.
