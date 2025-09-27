@@ -54,6 +54,7 @@ sorted by importance (top-bottom):
 - [ ] sort listing of tasks based on due date
 - [ ] overview
 - [ ] show top 5 upcoming tasks
+- [x] help
 
 ## extras
 

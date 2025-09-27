@@ -45,7 +45,8 @@
 
        PROCEDURE DIVISION.
        ACCEPT WS-CURRENT-DATE FROM DATE YYYYMMDD.
-       DISPLAY "DOOS - the tool to get it done".
+       DISPLAY "DOOS - the tool to get it done". DISPLAY " ".
+       DISPLAY "run 'help' for the list of commands".
        PERFORM PROCEDURE-MAIN.
        CLI-HANDLER.
            DISPLAY "> " WITH NO ADVANCING.
@@ -56,6 +57,8 @@
                DISPLAY "[i] exiting..."
            ELSE IF CLI-INPUT = "setup" THEN
                PERFORM PROCEDURE-SETUP
+           ELSE IF CLI-INPUT = "help" THEN
+               PERFORM PROCEDURE-HELP
            ELSE IF CLI-INPUT = "add" THEN
                PERFORM PROCEDURE-ADD
            ELSE IF CLI-INPUT = "list" THEN
@@ -91,6 +94,22 @@
                END-READ
            END-PERFORM
            CLOSE TASK-FILE.
+       PROCEDURE-HELP.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "HELP".
+           DISPLAY "github: https://github.com/theluqmn/doos"
+           DISPLAY " ". 
+           DISPLAY "command:                   description:".
+           DISPLAY " ".
+           DISPLAY "[setup]                    setup doos".
+           DISPLAY "[add]                      add a new task".
+           DISPLAY "[list]                     view all tasks".
+           DISPLAY "[done]                     mark a task as complete".
+           DISPLAY "[update]                   reschedule a task".
+           DISPLAY "-                          -".
+           DISPLAY "[exit]                     exit the program".
+           DISPLAY " ".
        PROCEDURE-SETUP.
            DISPLAY
            "------------------------------------------------------".
