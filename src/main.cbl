@@ -152,7 +152,7 @@
            PERFORM PROCEDURE-PROCESSOR.
 
            DISPLAY " ".
-           DISPLAY "task added successfully!".
+           DISPLAY ESC SUC "task added successfully!" ESC RES.
        PROCEDURE-LIST.
            DISPLAY ESC H-1 "ALL TASKS" ESC RES. DISPLAY " ".
 
