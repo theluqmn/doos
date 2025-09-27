@@ -67,6 +67,8 @@
                PERFORM PROCEDURE-COMPLETE
            ELSE IF CLI-INPUT = "update" THEN
                PERFORM PROCEDURE-RESCHEDULE
+           ELSE IF CLI-INPUT = "delete" THEN
+               PERFORM PROCEDURE-DELETE
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
@@ -107,6 +109,7 @@
            DISPLAY "[list]                     view all tasks".
            DISPLAY "[done]                     mark a task as complete".
            DISPLAY "[update]                   reschedule a task".
+           DISPLAY "[delete]                   delete a task".
            DISPLAY "-                          -".
            DISPLAY "[exit]                     exit the program".
            DISPLAY " ".
@@ -237,6 +240,24 @@
            CLOSE TASK-FILE.
 
            PERFORM PROCEDURE-PROCESSOR.
+
+           DISPLAY " ".
+       PROCEDURE-DELETE.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "DELETE A TASK". DISPLAY " ".
+
+           DISPLAY "(1/1) task id:             " WITH NO ADVANCING.
+           ACCEPT TASK-ID.
+
+           OPEN I-O TASK-FILE.
+           DELETE TASK-FILE
+               INVALID KEY DISPLAY
+               "[!] invalid task id"
+               NOT INVALID KEY DISPLAY
+               "[i] task deleted successfully!"
+           END-DELETE
+           CLOSE TASK-FILE.
 
            DISPLAY " ".
        PROCEDURE-MAIN.
