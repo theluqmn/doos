@@ -58,6 +58,8 @@
                PERFORM PROCEDURE-SETUP
            ELSE IF CLI-INPUT = "add" THEN
                PERFORM PROCEDURE-ADD
+           ELSE IF CLI-INPUT = "list" THEN
+               PERFORM PROCEDURE-LIST
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
@@ -72,7 +74,7 @@
                    INTEGER-OF-DATE(TP-DATE)
                    COMPUTE TP-NUM-B = FUNCTION
                    INTEGER-OF-DATE(WS-CURRENT-DATE)
-                   IF TP-NUM-A > TP-NUM-B THEN
+                   IF TP-NUM-A >= TP-NUM-B THEN
                        MOVE 1 TO TASK-STATUS
                    ELSE
                        MOVE 0 TO TASK-STATUS
@@ -120,6 +122,46 @@
            DISPLAY
            "------------------------------------------------------".
            DISPLAY "ALL TASKS". DISPLAY " ".
+
+           PERFORM PROCEDURE-PROCESSOR.
+
+           DISPLAY
+           "| NUM      "
+           "| TASK ID                          "
+           "| DETAILS                          "
+           "| DUE DATE   "
+           "| STATUS   |"
+           DISPLAY
+           "|----------"
+           "|----------------------------------"
+           "|----------------------------------"
+           "|------------"
+           "|----------|"
+           MOVE 0 TO COUNTER.
+           OPEN INPUT TASK-FILE.
+           PERFORM UNTIL FS-TASK NOT = '00'
+               READ TASK-FILE NEXT
+                   AT END MOVE '99' TO FS-TASK
+               NOT AT END
+                   ADD 1 TO COUNTER
+                   DISPLAY "| "
+                   COUNTER " | "
+                   TASK-ID " | "
+                   TASK-DETAILS " | " WITH NO ADVANCING
+                   DISPLAY
+                   TASK-DATE(1:4)"-"
+                   TASK-DATE(5:2)"-"
+                   TASK-DATE(7:2) " | " WITH NO ADVANCING
+                   IF TASK-STATUS = 1 THEN
+                       DISPLAY "OVERDUE  |"
+                   ELSE
+                       DISPLAY "UPCOMING |"
+                   END-IF
+               END-READ
+           END-PERFORM
+           CLOSE TASK-FILE.
+           DISPLAY " ".
+           DISPLAY "total tasks: " COUNTER.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.

@@ -47,7 +47,7 @@ sorted by importance (top-bottom):
 - [x] setup procedure
 - [x] add task
 - [x] process tasks (overdue, upcoming)
-- [ ] list tasks
+- [x] list tasks
 - [ ] mark task as complete
 - [ ] reschedule task
 - [ ] remove tasks
