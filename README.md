@@ -49,7 +49,7 @@ sorted by importance (top-bottom):
 - [x] process tasks (overdue, upcoming)
 - [x] list tasks
 - [x] mark task as complete
-- [ ] reschedule task
+- [x] reschedule task
 - [ ] remove tasks
 - [ ] sort listing of tasks based on due date
 - [ ] overview

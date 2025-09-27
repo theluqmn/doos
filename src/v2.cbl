@@ -62,6 +62,8 @@
                PERFORM PROCEDURE-LIST
            ELSE IF CLI-INPUT = "done" THEN
                PERFORM PROCEDURE-COMPLETE
+           ELSE IF CLI-INPUT = "update" THEN
+               PERFORM PROCEDURE-RESCHEDULE
            ELSE
                DISPLAY "[!] unknown command entered"
            END-IF.
@@ -103,6 +105,7 @@
            DISPLAY
            "------------------------------------------------------".
            DISPLAY "ADD A NEW TASK". DISPLAY " ".
+
            DISPLAY "(1/3) id:                  " WITH NO ADVANCING.
            ACCEPT TASK-ID.
 
@@ -187,6 +190,34 @@
                    DISPLAY "[i] item marked as complete!"
            END-READ.
            CLOSE TASK-FILE.
+
+           DISPLAY " ".
+       PROCEDURE-RESCHEDULE.
+           DISPLAY
+           "------------------------------------------------------".
+           DISPLAY "RESCHEDULE A TASK". DISPLAY " ".
+
+           DISPLAY "(1/2) task id:             " WITH NO ADVANCING.
+           ACCEPT TASK-ID.
+
+           DISPLAY "(2/2) due YYYY-MM-DD:      " WITH NO ADVANCING.
+           ACCEPT TP-STR-A.
+           MOVE TP-STR-A(1:4) TO TP-DATE(1:4).
+           MOVE TP-STR-A(6:2) TO TP-DATE(5:2).
+           MOVE TP-STR-A(9:2) TO TP-DATE(7:2).
+
+           OPEN I-O TASK-FILE.
+           READ TASK-FILE KEY IS TASK-ID
+               INVALID KEY
+                   DISPLAY "[!] invalid task id"
+               NOT INVALID KEY
+                   MOVE TP-DATE TO TASK-DATE
+                   REWRITE TASK-RECORD
+                   DISPLAY "[i] task rescheduled successfully!"
+           END-READ
+           CLOSE TASK-FILE.
+
+           PERFORM PROCEDURE-PROCESSOR.
 
            DISPLAY " ".
        PROCEDURE-MAIN.
