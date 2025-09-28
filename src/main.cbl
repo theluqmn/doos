@@ -66,7 +66,7 @@
            DISPLAY " ".
 
            IF CLI-INPUT = "exit" THEN
-               DISPLAY "[i] exiting..."
+               DISPLAY ESC INF "[i] exiting..." ESC RES
            ELSE IF CLI-INPUT = "setup" THEN
                PERFORM PROCEDURE-SETUP
            ELSE IF CLI-INPUT = "help" THEN
