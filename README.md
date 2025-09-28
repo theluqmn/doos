@@ -1,6 +1,6 @@
 # about this project
 
-<img width="1280" height="632" alt="doos" src="https://github.com/user-attachments/assets/8016440d-1bfa-4196-a022-401f5f9163ea" />
+<img width="1284" height="634" alt="doos" src="https://github.com/user-attachments/assets/b140b44c-627f-4453-8f9f-8d00292a8f37" />
 
 ## features
 
