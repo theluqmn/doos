@@ -1,11 +1,6 @@
-# doos
+# about this project
 
-CLI-based to-do system
-
-**doos** is a to-do list management software powered by cobol and the supreme command line.
-
-> [!NOTE]
-> this project is still a work-in-progress
+<img width="1280" height="632" alt="doos" src="https://github.com/user-attachments/assets/8016440d-1bfa-4196-a022-401f5f9163ea" />
 
 ## features
 
