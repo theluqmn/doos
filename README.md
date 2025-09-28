@@ -29,7 +29,7 @@
 - [x] reschedule task
 - [x] delete tasks
 - [x] add colours
-- [ ] purge (delete all completed tasks)
+- [x] purge (delete all completed tasks)
 - [ ] sort listing of tasks based on due date
 - [ ] overview
 - [ ] show top 5 upcoming tasks

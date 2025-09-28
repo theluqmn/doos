@@ -60,6 +60,7 @@
        DISPLAY ESC SUB "run 'help' for the list of commands" ESC RES.
        PERFORM PROCEDURE-MAIN.
        CLI-HANDLER.
+           DISPLAY " ".
            DISPLAY "> " WITH NO ADVANCING.
            ACCEPT TP-STR-A.
            MOVE FUNCTION LOWER-CASE(TP-STR-A) TO CLI-INPUT.
@@ -81,6 +82,8 @@
                PERFORM PROCEDURE-RESCHEDULE
            ELSE IF CLI-INPUT = "delete" THEN
                PERFORM PROCEDURE-DELETE
+           ELSE IF CLI-INPUT = "purge" THEN
+               PERFORM PROCEDURE-PURGE
            ELSE
                DISPLAY ESC ERR "[!] unknown command entered" ESC RES
            END-IF.
@@ -118,9 +121,9 @@
            DISPLAY "[done]                     mark a task as complete".
            DISPLAY "[update]                   reschedule a task".
            DISPLAY "[delete]                   delete a task".
+           DISPLAY "[purge]                    remove complete tasks".
            DISPLAY "-                          -".
            DISPLAY "[exit]                     exit the program".
-           DISPLAY " ".
        PROCEDURE-SETUP.
            DISPLAY ESC H-1 "SETUP DOOS" ESC RES. DISPLAY " ".
 
@@ -216,11 +219,8 @@
                    ESC SUC "[i] item marked as complete!" ESC RES
            END-READ.
            CLOSE TASK-FILE.
-
-           DISPLAY " ".
        PROCEDURE-RESCHEDULE.
-           DISPLAY ESC H-1 "RESCHEDULE A TASK" ESC RES.
-           DISPLAY " ".
+           DISPLAY ESC H-1 "RESCHEDULE A TASK" ESC RES. DISPLAY " ".
 
            DISPLAY "(1/2) task id:             " WITH NO ADVANCING.
            ACCEPT TASK-ID.
@@ -245,10 +245,8 @@
            CLOSE TASK-FILE.
 
            PERFORM PROCEDURE-PROCESSOR.
-
-           DISPLAY " ".
        PROCEDURE-DELETE.
-           DISPLAY "DELETE A TASK". DISPLAY " ".
+           DISPLAY ESC H-1 "DELETE A TASK" ESC RES. DISPLAY " ".
 
            DISPLAY "(1/1) task id:             " WITH NO ADVANCING.
            ACCEPT TASK-ID.
@@ -261,8 +259,68 @@
                ESC SUC "[i] task deleted successfully!" ESC RES
            END-DELETE
            CLOSE TASK-FILE.
+       PROCEDURE-PURGE.
+           DISPLAY ESC H-1 "PURGE COMPLETE TASKS" ESC RES. DISPLAY " ".
+           PERFORM PROCEDURE-PROCESSOR.
+
+           DISPLAY
+           ESC SUB "| " ESC H-2 "NUM      "
+           ESC SUB "| " ESC H-2 "TASK ID                          " 
+           ESC SUB "| " ESC H-2 "DETAILS                          "
+           ESC SUB "| " ESC H-2 "DUE DATE   "
+           ESC SUB "| " ESC H-2 "STATUS   " ESC SUB "|".
+           DISPLAY
+           "|----------"
+           "|----------------------------------"
+           "|----------------------------------"
+           "|------------"
+           "|----------|" ESC RES.
+           MOVE 0 TO COUNTER.
+           OPEN INPUT TASK-FILE.
+           PERFORM UNTIL FS-TASK NOT = '00'
+               READ TASK-FILE NEXT
+                   AT END MOVE '99' TO FS-TASK
+               NOT AT END
+                   IF TASK-STATUS = 2 THEN
+                       ADD 1 TO COUNTER
+                       DISPLAY ESC SUB "| " ESC RES
+                       COUNTER ESC SUB " | " ESC RES
+                       TASK-ID ESC SUB " | " ESC RES
+                       TASK-DETAILS ESC SUB " | " ESC RES
+                       WITH NO ADVANCING
+                       DISPLAY
+                       TASK-DATE(1:4)"-"
+                       TASK-DATE(5:2)"-"
+                       TASK-DATE(7:2)
+                       ESC SUB " | " ESC RES WITH NO ADVANCING
+                       DISPLAY ESC SUC "COMPLETE" ESC SUB " |" ESC RES
+                   END-IF
+               END-READ
+           END-PERFORM
+           CLOSE TASK-FILE.
 
            DISPLAY " ".
+           DISPLAY COUNTER " tasks will be purged."
+           DISPLAY "proceed? (y/n):            " WITH NO ADVANCING.
+           ACCEPT TP-STR-A.
+
+           IF TP-STR-A = "y" THEN
+               OPEN I-O TASK-FILE
+               PERFORM UNTIL FS-TASK NOT = '00'
+                   READ TASK-FILE NEXT
+                       AT END MOVE '99' TO FS-TASK
+                   NOT AT END
+                       IF TASK-STATUS = 2 THEN
+                           DELETE TASK-FILE
+                       END-IF
+                   END-READ
+               END-PERFORM
+               CLOSE TASK-FILE
+
+               DISPLAY ESC SUC "[i] tasks purged successfully!" ESC RES
+           ELSE
+               DISPLAY ESC INF "[i] operation cancelled" ESC RES
+           END-IF.
        PROCEDURE-MAIN.
            PERFORM CLI-HANDLER UNTIL CLI-INPUT = "exit".
            STOP RUN.
