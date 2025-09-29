@@ -33,7 +33,7 @@
        01 RES                                  PIC X(3) VALUE "[0m".
        01 SUB                                  PIC X(4) VALUE "[30m".
        01 H-1                                  PIC X(6) VALUE "[4;97m".
-       01 H-2                                  PIC X(6) VALUES "[1;37m".
+       01 H-2                                  PIC X(6) VALUE "[1;37m".
        01 ERR                                  PIC X(4) VALUE "[31m".
        01 INF                                  PIC X(4) VALUE "[34m".
        01 DAT                                  PIC X(4) VALUE "[32m".
