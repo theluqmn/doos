@@ -1,5 +1,3 @@
-# about this project
-
 <img width="1284" height="634" alt="doos" src="https://github.com/user-attachments/assets/b140b44c-627f-4453-8f9f-8d00292a8f37" />
 
 ## features
@@ -18,6 +16,9 @@
 - the main console (when entering commands, with the following `>` visible) is not case sensitive, but other inputs are.
 
 ## to-do
+
+> [!NOTE]
+> this project is already considered complete.
 
 - [x] cobol setup
 - [x] cli-handler
